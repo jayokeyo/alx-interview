@@ -24,7 +24,7 @@ def pascal_triangle(n):
         else:
             List.append([1,])
             for j in range(1, k):
-                List[i].append(List[i - 1][j]+List[i - 1][j - 1])
+                List[i].append(List[i - 1][j] + List[i - 1][j - 1])
             List[i].append(1)
             k += 1
     return List

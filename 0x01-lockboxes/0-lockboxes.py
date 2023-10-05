@@ -17,7 +17,9 @@ Return True if all boxes can be opened, else return False
 
 def canUnlockAll(boxes):
     '''method that determines if all the boxes can be opened.'''
-    if (len(boxes) > 0):
+    if (len(boxes) == 1):
+        return True
+    if (len(boxes) > 1):
         Opened_boxes = ["Locked"] * len(boxes)
         Opened_boxes[0] = "Unlocked"
         for i in range(0, len(boxes)):
@@ -33,3 +35,5 @@ def canUnlockAll(boxes):
             return False
         else:
             return True
+    else:
+        return False

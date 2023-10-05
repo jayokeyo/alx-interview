@@ -23,7 +23,7 @@ def canUnlockAll(boxes):
         for i in range(0, len(boxes)):
             if (len(boxes[i]) > 0):
                 for j in range(0, len(boxes[i])):
-                    Opened_boxes[boxes[i][j]] = "Unlocked"
+                    Opened_boxes[boxes[i][j]] = "Unlocked" if boxes[i][j] < len(boxes)
             else:
                 break
         if "Locked" in Opened_boxes:

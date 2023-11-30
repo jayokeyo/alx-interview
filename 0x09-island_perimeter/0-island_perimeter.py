@@ -21,23 +21,25 @@ def island_perimeter(grid):
     '''
     perimeter = 0
     if (len(grid) == 0 or grid is None):
-        return 0
+        return
+    if (sum(grid[0]) != 0 or 
+            sum(grid[len(grid) - 1]) != 0):
+        return
     for i in range(len(grid)):
-        for j in range(len(grid[i])):
-            if (grid[i][j] == 1 and 
-                    (grid[i - 1][j] == 0 or i == 0)
-                    ):
+        if (grid[i][0] != 0 or grid[i][len(grid[i]) - 1] != 0):
+            return
+    for i in range(1, (len(grid) - 1)):
+        for j in range(1, (len(grid[i]) - 1)):
+            if (grid[i][j] == 0 and 
+                    (grid[i - 1][j] == grid[i + 1][j] == 
+                    grid[i][j - 1] == grid[i][j + 1] == 1)):
+                return
+            if (grid[i][j] == 1 and grid[i - 1][j] == 0):
                 perimeter += 1
-            if (grid[i][j] == 1 and 
-                    (grid[i][j - 1] == 0 or j == 0)
-                    ):
+            if (grid[i][j] == 1 and grid[i][j - 1] == 0):
                 perimeter += 1
-            if (grid[i][j] == 1 and 
-                    (grid[i][j + 1] == 0 or j == len(grid[i]) - 1)
-                    ):
+            if (grid[i][j] == 1 and grid[i][j + 1] == 0):
                 perimeter += 1
-            if (grid[i][j] == 1 and 
-                    (grid[i + 1][j] == 0 or i == len(grid))
-                    ):
+            if (grid[i][j] == 1 and grid[i + 1][j] == 0):
                 perimeter += 1
     return perimeter

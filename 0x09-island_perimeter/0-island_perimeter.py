@@ -1,56 +1,62 @@
 #!/usr/bin/python3
-'''
-Create a function def island_perimeter(grid): that returns
-the perimeter of the island described in grid:
-
-grid is a list of list of integers:
-0 represents water
-1 represents land
-Each cell is square, with a side length of 1
-Cells are connected horizontally/vertically (not diagonally).
-grid is rectangular, with its width and height not exceeding 100
-The grid is completely surrounded by water
-There is only one island (or nothing).
-The island doesn’t have “lakes” (water inside that isn’t
-connected to the water surrounding the island).
-'''
+'''0x09. Island Perimeter'''
 
 
 def island_perimeter(grid):
-    '''returns the perimeter of the island described in grid
-    '''
-    perimeter = 0
+    '''returns the perimeter of the island described in grid'''
+    counter = 0
+    grid_max = len(grid) - 1  # index of the last list in the grid
+    lst_max = len(grid[0]) - 1  # index of the last square in list
 
-    if (len(grid) < 3 or len(grid[0]) < 3 or grid is None):
-        return 0
+    for lst_idx, lst in enumerate(grid):
+        for land_idx, land in enumerate(lst):
+            if land == 1:
+                # left and right
+                if land_idx == 0:
+                    # left side
+                    counter += 1
 
-    if (sum(grid[0]) != 0 or 
-            sum(grid[len(grid) - 1]) != 0):
-        return 0
+                    # right side
+                    if lst[land_idx + 1] == 0:
+                        counter += 1
+                elif land_idx == lst_max:
+                    # left side
+                    if lst[land_idx - 1] == 0:
+                        counter += 1
 
-    for i in range(len(grid)):
-        if (grid[i][0] != 0 or grid[i][len(grid[i]) - 1] != 0):
-            return 0
+                    # right side
+                    counter += 1
+                else:
+                    # left side
+                    if lst[land_idx - 1] == 0:
+                        counter += 1
 
-    for i in range(1, (len(grid) - 1)):
-        for j in range(1, (len(grid[i]) - 1)):
-            if (grid[i][j] == 0 and 
-                    (grid[i - 1][j] == grid[i + 1][j] == 
-                    grid[i][j - 1] == grid[i][j + 1] == 1)):
-                return 0
+                    # right side
+                    if lst[land_idx + 1] == 0:
+                        counter += 1
 
-            if (grid[i][j] == 1):
-                if ((len(grid) > 3 and len(grid[0]) > 3) and 
-                        (grid[i - 1][j] == grid[i + 1][j] == 
-                            grid[i][j - 1] == grid[i][j + 1] == 0)):
-                    return 0
-                if (grid[i - 1][j] == 0):
-                    perimeter += 1
-                if (grid[i][j - 1] == 0):
-                    perimeter += 1
-                if (grid[i][j + 1] == 0):
-                    perimeter += 1
-                if (grid[i + 1][j] == 0):
-                    perimeter += 1
+                # top and down
+                if lst_idx == 0:
+                    # top side
+                    counter += 1
 
-    return perimeter
+                    # bottom side
+                    if grid[lst_idx + 1][land_idx] == 0:
+                        counter += 1
+                elif lst_idx == grid_max:
+                    # top side
+                    if grid[lst_idx - 1][land_idx] == 0:
+                        counter += 1
+
+                    # bottom side
+                    counter += 1
+                else:
+                    # top side
+                    if grid[lst_idx - 1][land_idx] == 0:
+                        counter += 1
+
+                    # bottom side
+                    if grid[lst_idx + 1][land_idx] == 0:
+                        counter += 1
+
+    return counter
